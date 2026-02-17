@@ -335,17 +335,22 @@ class ActionBatch:
                 if node.attrib["news"] != "1":
                     self.news_archs = node.attrib["news"]
             for f in node.attrib["name"].split("|"):
-                if node.attrib.get("flavor", "") != "0":
-                    self.flavors.append(f)
-                if node.attrib.get("distri", ""):
-                    self.flavor_distri[f] = node.attrib["distri"]
-                if node.attrib.get("iso_5", ""):
-                    self.flavor_aliases[node.attrib.get("iso_5")].append(f)
-                    self.iso_5 = node.attrib.get("iso_5")
-                if node.attrib.get("fixed_iso", ""):
-                    self.fixed_iso = node.attrib["fixed_iso"]
-                if node.attrib.get("rsync", "1") == "0":
-                    self.norsync[f] = 1
+                if "/" in f:
+                    alias_distri, alias_flavor = f.split("/")
+                    self.flavors.append(alias_flavor)
+                    self.flavor_distri[alias_flavor] = alias_distri
+                else:
+                    if node.attrib.get("flavor", "") != "0":
+                        self.flavors.append(f)
+                    if node.attrib.get("distri", ""):
+                        self.flavor_distri[f] = node.attrib["distri"]
+                    if node.attrib.get("iso_5", ""):
+                        self.flavor_aliases[node.attrib.get("iso_5")].append(f)
+                        self.iso_5 = node.attrib.get("iso_5")
+                    if node.attrib.get("fixed_iso", ""):
+                        self.fixed_iso = node.attrib["fixed_iso"]
+                    if node.attrib.get("rsync", "1") == "0":
+                        self.norsync[f] = 1
         iso_attrib = node.attrib.get("iso", "")
         if iso_attrib.endswith(".iso"):
             self.isos_fixed.append(iso_attrib)
