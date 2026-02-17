@@ -3,7 +3,7 @@
  ASSET_256=agama-installer.x86_64-17.0.0-openSUSE-Snapshot20250929.iso.sha256 \
  BUILD=20250929 \
  CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/agama-installer.x86_64-17.0.0-openSUSE-Snapshot20250929.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
- DISTRI=opensuse \
+ DISTRI=microos \
  FLAVOR=agama-installer \
  FULLURL=1 \
  INST_INSTALL_URL=https://openqa.opensuse.org/assets/repo/openSUSE-Tumbleweed-oss-x86_64-Snapshot20250929 \
@@ -32,7 +32,7 @@
  BUILD=20250929 \
  CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/agama-installer.x86_64-17.0.0-openSUSE-Snapshot20250929.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
  DISTRI=microos \
- FLAVOR=agama-install \
+ FLAVOR=agama-installer \
  FULLURL=1 \
  INST_INSTALL_URL=https://openqa.opensuse.org/assets/repo/openSUSE-Tumbleweed-oss-x86_64-Snapshot20250929 \
  ISO=agama-installer.x86_64-17.0.0-openSUSE-Snapshot20250929.iso \
