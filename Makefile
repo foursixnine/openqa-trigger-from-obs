@@ -58,6 +58,9 @@ PYTHON_RUN ?=
 
 .PHONY: ruff_check ruff_format ty_check test_python_style
 test_python_style: ruff_check ruff_format ty_check test_python_style
+.PHONY: unit_tests
+unit_tests:
+	$(PYTHON_RUN) pytest -v
 
 ruff_check:
 	$(PYTHON_RUN) ruff check $(ARGS)

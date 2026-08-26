@@ -5,6 +5,7 @@ requires-python = ">=3.10"
 
 [dependency-groups]
 dev = [
+    "pytest>=8",
     "ruff>=0.15",
     "ty>=0.0.26",
 ]
