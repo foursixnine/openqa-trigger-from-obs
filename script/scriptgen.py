@@ -17,6 +17,25 @@ def define_rsync_host(user, is_staging):
     return f"{user_prefix}obspublish{host_suffix}::openqa"
 
 
+def normalize_productpath(user, is_staging, project, productpath):
+    if not productpath:
+        return os.path.join(
+            define_rsync_host(user, is_staging), os.path.basename(project)
+        )
+
+    if "::" in productpath:
+        if not user or "@" in productpath.split("::", 1)[0]:
+            return productpath
+        return f"{user}@{productpath}"
+
+    if "//" in productpath:
+        return productpath
+
+    return os.path.join(
+        define_rsync_host(user, is_staging), os.path.basename(project), productpath
+    )
+
+
 class ActionGenerator:
     def __init__(self, envdir, project, productpath, version, brand, rsync_user=""):
         self.brand = brand
@@ -26,13 +45,9 @@ class ActionGenerator:
         self.version = version
         self.batches = []
         project = project.split("::")[0]
-        pp = productpath
-        if not pp or ("::" not in pp and "//" not in pp):
-            rsync_resource = define_rsync_host(rsync_user, bool(self.staging()))
-            pp = os.path.join(rsync_resource, os.path.basename(project))
-            if productpath and "::" not in productpath and "//" not in productpath:
-                pp = os.path.join(pp, productpath)
-        self.productpath = pp
+        self.productpath = normalize_productpath(
+            rsync_user, bool(self.staging()), project, productpath
+        )
         self.archs = "aarch64 armv7l armv7hl ppc64le riscv64 s390x x86_64"
         self.media1 = "1"
         self.sha = "256"
