@@ -11,8 +11,14 @@ from xml.etree import ElementTree
 import cfg
 
 
+def define_rsync_host(user, is_staging):
+    user_prefix = f"{user}@" if user else ""
+    host_suffix = "-stage" if is_staging else ""
+    return f"{user_prefix}obspublish{host_suffix}::openqa"
+
+
 class ActionGenerator:
-    def __init__(self, envdir, project, productpath, version, brand):
+    def __init__(self, envdir, project, productpath, version, brand, rsync_user=""):
         self.brand = brand
         self.envdir = os.path.join(envdir, project)
         self.distri = ""
@@ -22,10 +28,8 @@ class ActionGenerator:
         project = project.split("::")[0]
         pp = productpath
         if not pp or ("::" not in pp and "//" not in pp):
-            if self.staging():
-                pp = os.path.join("obspublish-stage::openqa", os.path.basename(project))
-            else:
-                pp = os.path.join("obspublish::openqa", os.path.basename(project))
+            rsync_resource = define_rsync_host(rsync_user, bool(self.staging()))
+            pp = os.path.join(rsync_resource, os.path.basename(project))
             if productpath and "::" not in productpath and "//" not in productpath:
                 pp = os.path.join(pp, productpath)
         self.productpath = pp
@@ -1633,7 +1637,7 @@ def detect_xml_dir(project):
     return os.path.dirname(project)[-3:]
 
 
-def gen_files(project):
+def gen_files(project, rsync_user):
     project = project.rstrip("/")
     xmlfile = ""
 
@@ -1653,7 +1657,7 @@ def gen_files(project):
             # https://github.com/astral-sh/ty/issues/2681 ignore unused-ignore-comment rule twice
             import ibs  # noqa: F401 # ty: ignore[unused-ignore-comment, unresolved-import, unused-ignore-comment]
 
-    a = ActionGenerator(os.getcwd(), project, dist_path, version, xmldir)
+    a = ActionGenerator(os.getcwd(), project, dist_path, version, xmldir, rsync_user)
     if a is None:
         print("Couldnt initialize", file=sys.stderr)
         sys.exit(1)
@@ -1680,9 +1684,11 @@ if __name__ == "__main__":
         description="Generate scripts for OBS project synchronization according to XML definition."
     )
     parser.add_argument("project", nargs="?", help="Folder matching OBS project")
+    parser.add_argument("--rsync-user", help="Username for rsync connection")
 
     class Args:
         project: str | None = None
+        rsync_user: str | None = None
 
     args = Args()
     parser.parse_args(namespace=args)
@@ -1691,7 +1697,9 @@ if __name__ == "__main__":
 
     if args.project:
         print("Generating scripts for " + args.project)
-        ret = gen_files(args.project)
+        if args.rsync_user:
+            print("Using " + args.rsync_user + " to connect to rsync resource")
+        ret = gen_files(args.project, args.rsync_user)
         if ret == 0:
             print("OK")
 
