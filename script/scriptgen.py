@@ -8,7 +8,10 @@ from contextlib import suppress
 from subprocess import CalledProcessError, check_output
 from xml.etree import ElementTree
 
-import cfg
+try:
+    from . import cfg
+except ImportError:
+    import cfg
 
 
 def define_rsync_host(user, is_staging):
