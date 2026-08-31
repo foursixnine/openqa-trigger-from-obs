@@ -1,0 +1,87 @@
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=openSUSE-Staging:J-Tumbleweed-Minimal-VM.x86_64-1.0.0-kvm-and-xen-Build44.4.qcow2.sha256 \
+ BUILD=J.44.4 \
+ CHECKSUM_HDD_1=$(cut -b-64 /var/lib/openqa/factory/other/openSUSE-Staging:J-Tumbleweed-Minimal-VM.x86_64-1.0.0-kvm-and-xen-Build44.4.qcow2.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=opensuse \
+ FLAVOR=Staging-JeOS-for-kvm-and-xen \
+ HDD_1=openSUSE-Staging:J-Tumbleweed-Minimal-VM.x86_64-1.0.0-kvm-and-xen-Build44.4.qcow2 \
+ ISO_1=openSUSE-Staging:J-Tumbleweed-DVD-x86_64-Build804.1-Media.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=openSUSE-Staging:J-MicroOS.x86_64-16.0.0-ContainerHost-kvm-and-xen-Build104.2.qcow2.sha256 \
+ BUILD=J.104.2 \
+ CHECKSUM_HDD_1=$(cut -b-64 /var/lib/openqa/factory/other/openSUSE-Staging:J-MicroOS.x86_64-16.0.0-ContainerHost-kvm-and-xen-Build104.2.qcow2.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=microos \
+ FLAVOR=Staging-MicroOS-Image-ContainerHost \
+ HDD_1=openSUSE-Staging:J-MicroOS.x86_64-16.0.0-ContainerHost-kvm-and-xen-Build104.2.qcow2 \
+ ISO_1=openSUSE-Staging:J-MicroOS-DVD-x86_64-Build804.1-Media.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=openSUSE-Staging:J-MicroOS.x86_64-16.0.0-kvm-and-xen-sdboot-Build104.2.qcow2.sha256 \
+ BUILD=J.104.2 \
+ CHECKSUM_HDD_1=$(cut -b-64 /var/lib/openqa/factory/other/openSUSE-Staging:J-MicroOS.x86_64-16.0.0-kvm-and-xen-sdboot-Build104.2.qcow2.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=microos \
+ FLAVOR=Staging-MicroOS-Image-sdboot \
+ HDD_1=openSUSE-Staging:J-MicroOS.x86_64-16.0.0-kvm-and-xen-sdboot-Build104.2.qcow2 \
+ ISO_1=openSUSE-Staging:J-MicroOS-DVD-x86_64-Build804.1-Media.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=openSUSE-Staging:J-Tumbleweed-DVD-x86_64-Build804.1-Media.iso.sha256 \
+ BUILD=J.804.1 \
+ CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/openSUSE-Staging:J-Tumbleweed-DVD-x86_64-Build804.1-Media.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=opensuse \
+ FLAVOR=Staging-DVD \
+ ISO=openSUSE-Staging:J-Tumbleweed-DVD-x86_64-Build804.1-Media.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=openSUSE-Staging:J-MicroOS-DVD-x86_64-Build804.1-Media.iso.sha256 \
+ BUILD=J.804.1 \
+ CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/openSUSE-Staging:J-MicroOS-DVD-x86_64-Build804.1-Media.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=microos \
+ FLAVOR=Staging-DVD \
+ ISO=openSUSE-Staging:J-MicroOS-DVD-x86_64-Build804.1-Media.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso.sha256 \
+ BUILD=J.5.1 \
+ CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=opensuse \
+ FLAVOR=Staging-offline-installer \
+ ISO=TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
+/usr/bin/openqa-cli api -X post isos?async=1 \
+ ARCH=x86_64 \
+ ASSET_256=TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso.sha256 \
+ BUILD=J.5.1 \
+ CHECKSUM_ISO=$(cut -b-64 /var/lib/openqa/factory/other/TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso.sha256 | grep -E '[0-9a-f]{5,40}' | head -n1) \
+ DISTRI=microos \
+ FLAVOR=Staging-offline-install \
+ ISO=TW-Staging:J-offline-installer-x86_64-Build5.1.install.iso \
+ STAGING=J \
+ VERSION=Staging:J \
+ _OBSOLETE=1
+
