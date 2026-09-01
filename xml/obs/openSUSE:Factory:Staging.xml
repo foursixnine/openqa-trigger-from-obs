@@ -16,6 +16,6 @@
     <flavor name='MicroOS-DVD' distri="microos" iso="1" folder="*product*"/>
 
     <!-- goes to /openSUSE:Factory:Staging:J/images/x86_64/../../product/ -->
-    <flavor name="offline-installer" distri="opensuse" iso="1" media1="0" folder="../../product/*/*product*" />
-    <flavor name="offline-install" distri="microos" iso="1" media1="0" folder="../../product/*/*product*" />
+    <flavor name="offline-installer" distri="opensuse" iso="1" media1="0" folder="../../product/*/*product*" sha="512"/>
+    <flavor name="offline-install" distri="microos" iso="1" media1="0" folder="../../product/*/*product*" sha="512"/>
 </openQA>
