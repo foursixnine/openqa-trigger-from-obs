@@ -11,7 +11,8 @@ for dir in "${thisdir}"/*bs/*; do
     # this checks whether files must be generated
     dir1="$thisdir/../$(basename $dir)"
     if [ ! -d "$dir1" ] || [ ! -f "$dir1"/print_rsync_iso.sh ] || [[ "$(head -n1 $dir1/print_rsync_iso.sh)" =~ GENERATED  ]]; then
-        python3 script/scriptgen.py $dir
+        # RSYNC_USER_ARG comes from the Makefile and is passed as is to scriptgen.py
+        python3 script/scriptgen.py "$@" $dir
     else
         cp "$dir1"/print_* "$dir"
     fi

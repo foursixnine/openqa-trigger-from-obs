@@ -59,6 +59,12 @@ The goal here is to add a new project to the test framework, so it will be
 possible to preview exact commands and limit the chance that an occasional
 commit affects them in the future.
 
+Note: For convenience, `script/scriptgen.py` supports `--rsync-user` to specify
+the rsync user, so the generation of `.lst` files can be done without modifying
+the `read_files.sh` scripts or sudoing as the user that owns the `rsync.secret`
+file. This is also baked into the Makefile so `RSYNC_USER=alice make test_regen_all`
+will generate the scripts using the `alice` rsync user.
+
 1. Find a project with similar settings, create a copy of its xml file and
    tweak changes as needed.
 2. Create folder *t/obs/ProjectName* and generate scripts using

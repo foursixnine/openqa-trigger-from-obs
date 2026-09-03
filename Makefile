@@ -5,8 +5,18 @@ help:
 
 # projects_opensuse := $(shell echo openSUSE:Leap:15.2:Staging:{A..D})
 
+RSYNC_USER ?=
+RSYNC_USER_FLAG :=
+
+ifneq ($(RSYNC_USER),)
+    RSYNC_USER_FLAG := --rsync-user=$(RSYNC_USER)
+endif
+
 openSUSE%: FORCE
-	mkdir -p $@ && python3 script/scriptgen.py $@
+	@if [ -n "$(RSYNC_USER)" ]; then \
+		echo "Regenerating all test scripts using $(RSYNC_USER)"; \
+	fi
+	mkdir -p $@ && python3 script/scriptgen.py $(RSYNC_USER_ARG) $@
 
 .PHONY: FORCE
 FORCE:
@@ -32,7 +42,10 @@ test_docker:
 	(cd t && bash run_docker.sh)
 
 test_regen_all:
-	(bash t/regen_all.sh)
+	@if [ -n "$(RSYNC_USER)" ]; then \
+		echo "Regenerating all test scripts using $(RSYNC_USER)"; \
+	fi
+	(bash t/regen_all.sh $(RSYNC_USER_FLAG))
 
 test_update_before_files: test_regen_all
 	(cd t && bash test_before_after_diff.sh --update-before *bs/*)
@@ -45,6 +58,9 @@ PYTHON_RUN ?=
 
 .PHONY: ruff_check ruff_format ty_check test_python_style
 test_python_style: ruff_check ruff_format ty_check test_python_style
+.PHONY: unit_tests
+unit_tests:
+	$(PYTHON_RUN) pytest -v
 
 ruff_check:
 	$(PYTHON_RUN) ruff check $(ARGS)
