@@ -179,6 +179,10 @@ fails the checks of `script/validate_xml.py`. The schema is checked by
 `make validate_xml` in CI only, so the server does not need `xmllint`. Only
 the brand of the checkout (obs) is handled.
 
+*docs/deploy-hooks-demo/deploy-hooks.html* shows what the hooks do in typical
+situations; `python3 docs/deploy-hooks-demo/hooks_demo.py` regenerates it from
+the committed HEAD.
+
 First-time setup (as the user that owns the checkout, e.g. `geekotest`):
 
 ```
